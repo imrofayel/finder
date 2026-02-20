@@ -49,8 +49,12 @@ class ProductDropdown extends HTMLElement {
       const min = Math.min(...nums);
       const max = Math.max(...nums);
       this._content.innerHTML = `
-        <span>${min}–${max} ${unit}</span>
-        <input type="range" min="${min}" max="${max}" value="${min}" />`;
+        <div class="flex flex-col gap-3">
+          <span>${min}–${max} ${unit}</span>
+          <input type="range" min="${min}" max="${max}" value="${min}" />
+          <span class="range-value">${min} ${unit}</span>
+        </div>
+        `;
 
     } else if (type === "text") {
       this._content.innerHTML = `

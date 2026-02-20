@@ -76,14 +76,24 @@ function applyFilters() {
     const textInput = document.querySelector('.dropdown-content input[type="text"]')
     const checked = Array.from(document.querySelectorAll('.dropdown-content input[type="checkbox"]:checked')).map(input => input.value)
 
+    const rangeFilters = Array.from(document.querySelectorAll('product-dropdown[data-type="range"] input[type="range"]')).map(input => ({
+        field: input.closest('product-dropdown').getAttribute('data-field'),
+        value: parseFloat(input.value),
+    }))
+
     const filteredProducts = products.filter(product => {
+        for (const rf of rangeFilters) {
+            const productVal = parseFloat(product[rf.field])
+            if (isNaN(productVal) || productVal < rf.value) return false
+        }
+
         if (textInput.value !== '' && !product.swissbit_part_number.includes(textInput.value)) {
             return false
-        } else {
-            return checked.every(value => {
-                return Object.values(product).includes(value)
-            })
         }
+
+        return checked.every(value => {
+            return Object.values(product).includes(value)
+        })
     })
 
     document.getElementById('product-count').textContent = filteredProducts.length
@@ -100,6 +110,9 @@ document.querySelectorAll('.dropdown-content input[type="text"]').forEach(input 
 
 document.querySelectorAll('.dropdown-content input[type="range"]').forEach(input => {
     input.addEventListener('input', () => {
-        
+        const display = input.closest('.dropdown-content').querySelector('.range-value')
+        const unit = input.closest('product-dropdown').getAttribute('data-unit') || ''
+        if (display) display.textContent = `${input.value} ${unit}`
+        applyFilters()
     })
 })
