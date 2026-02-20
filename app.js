@@ -116,3 +116,23 @@ document.querySelectorAll('.dropdown-content input[type="range"]').forEach(input
         applyFilters()
     })
 })
+
+document.getElementById('reset-filters').addEventListener('click', () => {
+    document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(input => {
+        input.checked = false
+    })
+
+    document.querySelectorAll('.dropdown-content input[type="text"]').forEach(input => {
+        input.value = ''
+    })
+
+    document.querySelectorAll('.dropdown-content input[type="range"]').forEach(input => {
+        const min = input.getAttribute('min')
+        input.value = min
+        const display = input.closest('.dropdown-content').querySelector('.range-value')
+        const unit = input.closest('product-dropdown').getAttribute('data-unit') || ''
+        if (display) display.textContent = `${min} ${unit}`
+    })
+
+    applyFilters()
+})
