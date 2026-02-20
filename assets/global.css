@@ -54,7 +54,7 @@ thead {
     }
 }
 
-table{
+table {
     table-layout: auto !important;
 }
 
@@ -118,4 +118,3 @@ table{
 .sliders_control input[type="range"]::-moz-range-thumb:hover {
     background: #eff6ff;
 }
-
