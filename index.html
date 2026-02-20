@@ -28,64 +28,277 @@
 
         <div class="grid grid-cols-4 gap-x-7 mt-8 gap-y-2.5 max-w-[95rem] mx-auto">
             <product-dropdown label="Product Interface">
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>MMC</span>
+                    </div>
 
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>PATA</span>
+                    </div>
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>PCIe</span>
+                    </div>
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>SD</span>
+                    </div>
+
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>USB</span>
+                    </div>
+
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>128 MB</span>
+                    </div>
+
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>256 MB</span>
+                    </div>
+
+                </div>
             </product-dropdown>
 
             <product-dropdown label="Density Class">
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>32 MB</span>
+                    </div>
 
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>64 MB</span>
+                    </div>
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>128 MB</span>
+                    </div>
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>256 MB</span>
+                    </div>
+
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>512 MB</span>
+                    </div>
+
+
+
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>128 MB</span>
+                    </div>
+
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>256 MB</span>
+                    </div>
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>512 MB</span>
+                    </div>
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>1 GB</span>
+                    </div>
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>2 GB</span>
+                    </div>
+
+
+                </div>
             </product-dropdown>
 
             <product-dropdown label="Seq. Read Perf.">
-
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <span>0-57 MB/s</span>
+                    <input type="range" min="0" max="57" value="0" />
+                </div>
             </product-dropdown>
 
 
             <product-dropdown label="Product Series">
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>S250</span>
+                    </div>
 
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>S250u</span>
+                    </div>
+                </div>
             </product-dropdown>
 
             <product-dropdown label="Form Factor">
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>Key Drive</span>
+                    </div>
 
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>microSD Card</span>
+                    </div>
+
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>SD Card</span>
+                    </div>
+                </div>
             </product-dropdown>
 
-            <product-dropdown label="Temp. Grad">
+            <product-dropdown label="Temp. Grade">
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>-25 to 85°C</span>
+                    </div>
 
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>-40 to 105°C</span>
+                    </div>
+
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>-40 to 85°C</span>
+                    </div>
+
+                    <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                        <div class="flex gap-2 items-center">
+                            <input type="checkbox" />
+                            <span>Key Drive</span>
+                        </div>
+
+                        <div class="flex gap-2 items-center">
+                            <input type="checkbox" />
+                            <span>microSD Card</span>
+                        </div>
+
+                        <div class="flex gap-2 items-center">
+                            <input type="checkbox" />
+                            <span>0 to 70°C</span>
+                        </div>
+                    </div>
+                </div>
             </product-dropdown>
 
             <product-dropdown label="Seq. Write Perf.">
-
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <span>13 MB/s</span>
+                    <span>Only one option available</span>
+                </div>
             </product-dropdown>
 
 
             <product-dropdown label="Part Number">
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <span>Your Swissbi Partner Number</span>
 
+                    <div class="flex gap-2 items-center">
+                        <input type="text" class="border border-gray-300 bg-white rounded px-2 py-1 w-full" />
+                    </div>
+                </div>
             </product-dropdown>
 
             <product-dropdown label="Flash Type">
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>n/a</span>
+                    </div>
 
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>SLC</span>
+                    </div>
+                </div>
             </product-dropdown>
             <product-dropdown label="Endurance">
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>●</span>
+                    </div>
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>● ●</span>
+                    </div>
+
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>● ● ●</span>
+                    </div>
+                </div>
 
             </product-dropdown>
 
             <product-dropdown label="Rand. Read Perf.">
-
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <span>0-2700000 IOPS</span>
+                    <input type="range" min="0" max="2700000" value="0" />
+                </div>
             </product-dropdown>
 
             <product-dropdown label="For new design">
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
 
+
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>Yes</span>
+                    </div>
+                </div>
             </product-dropdown>
 
-            <div class="col-span-2"></div>
-
-
             <product-dropdown label="Rand. Write Perf.">
-
+                                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <span>0-1220000 IOPS</span>
+                    <input type="range" min="0" max="1220000" value="0" />
+                </div>
             </product-dropdown>
 
 
             <product-dropdown label="Status">
+                <div class="card bg-gray-100 flex flex-col gap-3 w-full text-[18px]">
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>in production</span>
+                    </div>
 
+                    <div class="flex gap-2 items-center">
+                        <input type="checkbox" />
+                        <span>on request</span>
+                    </div>
+                </div>
             </product-dropdown>
 
 
@@ -151,15 +364,15 @@
                     </td>
                     <td>SA1200MD1T92C-1TB4-1GA-STD</td>
                     <td>
-                        A1200<br/>
+                        A1200<br />
                         1920 GB
                     </td>
-                    <td>PCIe<br/>M.2 2280</td>
-                    <td>0 to 70°C<br/>3D TLC</td>
-                    <td>Yes<br/>●●</td>
-                    <td>6810 MB/s<br/>1890 MB/s</td>
-                    <td>1220000 IOPS<br/>425000 IOPS</td>
-                    <td>in production<br/>n/a</td>
+                    <td>PCIe<br />M.2 2280</td>
+                    <td>0 to 70°C<br />3D TLC</td>
+                    <td>Yes<br />●●</td>
+                    <td>6810 MB/s<br />1890 MB/s</td>
+                    <td>1220000 IOPS<br />425000 IOPS</td>
+                    <td>in production<br />n/a</td>
                 </tr>
             </tbody>
         </table>
