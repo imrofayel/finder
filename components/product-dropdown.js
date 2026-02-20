@@ -41,7 +41,7 @@ class ProductDropdown extends HTMLElement {
       this._content.innerHTML = values.map(v => `
         <div class="flex gap-2 items-center">
           <input type="checkbox" value="${v}" />
-          <span>${"● ".repeat(+v)}</span>
+          <span>${`<svg xmlns="http://www.w3.org/2000/svg" class="inline mr-0.5" width="27" viewBox="0 0 24 24"><path fill="currentColor" d="M4 18q-1.25 0-2.125-.875T1 15V9q0-1.25.875-2.125T4 6h11.975q.5 0 .75.313t.25.687t-.25.688t-.75.312H4q-.425 0-.712.288T3 9v6q0 .425.288.713T4 16h10.625q.5 0 .75.313t.25.687t-.25.688t-.75.312zm-1-2V8zm15.375-3H16.05q-.325 0-.462-.275t.062-.525l4.2-5.275q.125-.15.313-.075t.137.275L19.625 11h2.325q.325 0 .463.275t-.063.525l-4.2 5.275q-.125.15-.312.075t-.138-.275z"/></svg>`.repeat(+v)}</span>
         </div>`).join("");
 
     } else if (type === "range") {
@@ -49,12 +49,17 @@ class ProductDropdown extends HTMLElement {
       const min = Math.min(...nums);
       const max = Math.max(...nums);
       this._content.innerHTML = `
-        <div class="flex flex-col gap-3">
-          <span>${min}–${max} ${unit}</span>
-          <input type="range" min="${min}" max="${max}" value="${min}" />
-          <span class="range-value">${min} ${unit}</span>
+        <div class="range_container">
+          <div class="sliders_control">
+            <input type="range" class="from-slider" min="${min}" max="${max}" value="${min}" />
+            <input type="range" class="to-slider" min="${min}" max="${max}" value="${max}" />
+          </div>
+          <div class="flex justify-between text-[18px] mt-1">
+            <span class="from-value">${min} ${unit}</span>
+            <span class="to-value">${max} ${unit}</span>
+          </div>
         </div>
-        `;
+      `;
 
     } else if (type === "text") {
       this._content.innerHTML = `

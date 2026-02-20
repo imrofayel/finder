@@ -24,6 +24,23 @@ function numericValues(field, products) {
 
 setupDropdowns(products)
 
+function fillSlider(fromSlider, toSlider) {
+    const min = parseFloat(toSlider.min);
+    const max = parseFloat(toSlider.max);
+    const from = parseFloat(fromSlider.value);
+    const to = parseFloat(toSlider.value);
+    const rangeDistance = max - min;
+    const fromPct = ((from - min) / rangeDistance) * 100;
+    const toPct = ((to - min) / rangeDistance) * 100;
+    toSlider.style.background = `linear-gradient(to right, #C6C6C6 0%, #C6C6C6 ${fromPct}%, #2563eb ${fromPct}%, #2563eb ${toPct}%, #C6C6C6 ${toPct}%, #C6C6C6 100%)`;
+}
+
+document.querySelectorAll('product-dropdown[data-type="range"]').forEach(el => {
+    const fromSlider = el.querySelector('.from-slider');
+    const toSlider = el.querySelector('.to-slider');
+    if (fromSlider && toSlider) fillSlider(fromSlider, toSlider);
+});
+
 function renderTable(products) {
     tableBody.innerHTML = ''
     products.forEach(product => {
@@ -76,15 +93,17 @@ function applyFilters() {
     const textInput = document.querySelector('.dropdown-content input[type="text"]')
     const checked = Array.from(document.querySelectorAll('.dropdown-content input[type="checkbox"]:checked')).map(input => input.value)
 
-    const rangeFilters = Array.from(document.querySelectorAll('product-dropdown[data-type="range"] input[type="range"]')).map(input => ({
-        field: input.closest('product-dropdown').getAttribute('data-field'),
-        value: parseFloat(input.value),
+    const rangeFilters = Array.from(document.querySelectorAll('product-dropdown[data-type="range"]')).map(el => ({
+        field: el.getAttribute('data-field'),
+        from: parseFloat(el.querySelector('.from-slider').value),
+        to: parseFloat(el.querySelector('.to-slider').value),
     }))
 
     const filteredProducts = products.filter(product => {
         for (const rf of rangeFilters) {
             const productVal = parseFloat(product[rf.field])
-            if (isNaN(productVal) || productVal < rf.value) return false
+            if (isNaN(productVal)) continue
+            if (productVal < rf.from || productVal > rf.to) return false
         }
 
         if (textInput.value !== '' && !product.swissbit_part_number.toUpperCase().includes(textInput.value.toUpperCase())) {
@@ -108,13 +127,32 @@ document.querySelectorAll('.dropdown-content input[type="text"]').forEach(input 
     input.addEventListener('input', () => applyFilters())
 })
 
-document.querySelectorAll('.dropdown-content input[type="range"]').forEach(input => {
+document.querySelectorAll('.dropdown-content .from-slider, .dropdown-content .to-slider').forEach(input => {
     input.addEventListener('input', () => {
-        const display = input.closest('.dropdown-content').querySelector('.range-value')
-        const unit = input.closest('product-dropdown').getAttribute('data-unit') || ''
-        if (display) display.textContent = `${input.value} ${unit}`
-        applyFilters()
-    })
+        const container = input.closest('.range_container');
+        const fromSlider = container.querySelector('.from-slider');
+        const toSlider = container.querySelector('.to-slider');
+        const unit = input.closest('product-dropdown').getAttribute('data-unit') || '';
+
+        if (parseFloat(fromSlider.value) > parseFloat(toSlider.value)) {
+            if (input.classList.contains('from-slider')) {
+                fromSlider.value = toSlider.value;
+            } else {
+                toSlider.value = fromSlider.value;
+            }
+        }
+
+        if (parseFloat(toSlider.value) <= parseFloat(toSlider.min)) {
+            toSlider.style.zIndex = 2;
+        } else {
+            toSlider.style.zIndex = 0;
+        }
+
+        fillSlider(fromSlider, toSlider);
+        container.querySelector('.from-value').textContent = `${fromSlider.value} ${unit}`;
+        container.querySelector('.to-value').textContent = `${toSlider.value} ${unit}`;
+        applyFilters();
+    });
 })
 
 document.getElementById('reset-filters').addEventListener('click', () => {
@@ -126,12 +164,16 @@ document.getElementById('reset-filters').addEventListener('click', () => {
         input.value = ''
     })
 
-    document.querySelectorAll('.dropdown-content input[type="range"]').forEach(input => {
-        const min = input.getAttribute('min')
-        input.value = min
-        const display = input.closest('.dropdown-content').querySelector('.range-value')
-        const unit = input.closest('product-dropdown').getAttribute('data-unit') || ''
-        if (display) display.textContent = `${min} ${unit}`
+    document.querySelectorAll('product-dropdown[data-type="range"]').forEach(el => {
+        const fromSlider = el.querySelector('.from-slider');
+        const toSlider = el.querySelector('.to-slider');
+        const unit = el.getAttribute('data-unit') || '';
+        fromSlider.value = fromSlider.min;
+        toSlider.value = toSlider.max;
+        toSlider.style.zIndex = 0;
+        el.querySelector('.from-value').textContent = `${fromSlider.min} ${unit}`;
+        el.querySelector('.to-value').textContent = `${toSlider.max} ${unit}`;
+        fillSlider(fromSlider, toSlider);
     })
 
     applyFilters()
