@@ -1,20 +1,34 @@
 import "./components/product-dropdown.js";
 
-let productCount = 0
-
 const response = await fetch('/api/main.json')
 const data = await response.json()
 
-productCount = Object.values(data.content.products).length
-
-document.getElementById('product-count').textContent = productCount
-
-const tableBody = document.getElementById('table-body')
 const products = Object.values(data.content.products)
 
-products.forEach(product => {
-    const row = document.createElement('tr')
-    row.innerHTML = `
+document.getElementById('product-count').textContent = products.length
+const tableBody = document.getElementById('table-body')
+
+renderTable(products)
+
+function uniqueValues(field, products) {
+    return [...new Set(
+        products.map(p => p[field]).filter(v => v != null && v !== '')
+    )].sort()
+}
+
+function numericValues(field, products) {
+    return [...new Set(
+        products.map(p => p[field]).filter(v => v != null && v !== '' && !isNaN(v))
+    )]
+}
+
+setupDropdowns(products)
+
+function renderTable(products) {
+    tableBody.innerHTML = ''
+    products.forEach(product => {
+        const row = document.createElement('tr')
+        row.innerHTML = `
         <td class="flex items-center gap-1">
             <input type="checkbox" />
             <img src="${product.image || ''}" width="100px" />
@@ -31,5 +45,61 @@ products.forEach(product => {
         <td>${product.rnd_read_performance_iops || ''} IOPS<br/>${product.rnd_write_performance || ''} IOPS</td>
         <td>${product.status_pf || ''}<br/>n/a</td>
     `
-    tableBody.appendChild(row)
+        tableBody.appendChild(row)
+    })
+}
+
+function setupDropdowns(products) {
+    document.querySelectorAll('product-dropdown').forEach(el => {
+        const field = el.getAttribute('data-field')
+        const type = el.getAttribute('data-type')
+        const unit = el.getAttribute('data-unit') || ''
+
+        if (!field || !type) return
+
+        if (type === 'text') {
+            el.populate([], 'text')
+        } else if (type === 'range') {
+            const vals = numericValues(field, products)
+            if (vals.length) el.populate(vals, 'range', unit)
+        } else if (type === 'endurance') {
+            const vals = uniqueValues(field, products)
+            el.populate(vals, 'endurance')
+        } else {
+            const vals = uniqueValues(field, products)
+            el.populate(vals, 'checkbox')
+        }
+    })
+}
+
+function applyFilters() {
+    const textInput = document.querySelector('.dropdown-content input[type="text"]')
+    const checked = Array.from(document.querySelectorAll('.dropdown-content input[type="checkbox"]:checked')).map(input => input.value)
+
+    const filteredProducts = products.filter(product => {
+        if (textInput.value !== '' && !product.swissbit_part_number.includes(textInput.value)) {
+            return false
+        } else {
+            return checked.every(value => {
+                return Object.values(product).includes(value)
+            })
+        }
+    })
+
+    document.getElementById('product-count').textContent = filteredProducts.length
+    renderTable(filteredProducts)
+}
+
+document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(input => {
+    input.addEventListener('change', () => applyFilters())
+})
+
+document.querySelectorAll('.dropdown-content input[type="text"]').forEach(input => {
+    input.addEventListener('input', () => applyFilters())
+})
+
+document.querySelectorAll('.dropdown-content input[type="range"]').forEach(input => {
+    input.addEventListener('input', () => {
+        
+    })
 })
