@@ -51,8 +51,8 @@ class ProductDropdown extends HTMLElement {
       this._content.innerHTML = `
         <div class="range_container">
           <div class="sliders_control">
-            <input type="range" class="from-slider" min="${min}" max="${max}" value="${min}" />
-            <input type="range" class="to-slider" min="${min}" max="${max}" value="${max}" />
+            <input type="range" class="from-slider" min="${min}" max="${max}" value="${min}" step="any" />
+            <input type="range" class="to-slider" min="${min}" max="${max}" value="${max}" step="any" />
           </div>
           <div class="flex justify-between text-[18px] mt-1">
             <span class="from-value">${min} ${unit}</span>

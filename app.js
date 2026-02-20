@@ -149,8 +149,8 @@ document.querySelectorAll('.dropdown-content .from-slider, .dropdown-content .to
         }
 
         fillSlider(fromSlider, toSlider);
-        container.querySelector('.from-value').textContent = `${fromSlider.value} ${unit}`;
-        container.querySelector('.to-value').textContent = `${toSlider.value} ${unit}`;
+        container.querySelector('.from-value').textContent = `${Math.ceil(fromSlider.value)} ${unit}`;
+        container.querySelector('.to-value').textContent = `${Math.ceil(toSlider.value)} ${unit}`;
         applyFilters();
     });
 })
