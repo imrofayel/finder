@@ -87,7 +87,7 @@ function applyFilters() {
             if (isNaN(productVal) || productVal < rf.value) return false
         }
 
-        if (textInput.value !== '' && !product.swissbit_part_number.includes(textInput.value)) {
+        if (textInput.value !== '' && !product.swissbit_part_number.toUpperCase().includes(textInput.value.toUpperCase())) {
             return false
         }
 

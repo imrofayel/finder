@@ -259,7 +259,7 @@
         --shadow-small: 0 1px 2px 0 rgb(0 0 0 / .05);
         --shadow-medium: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
         --shadow-large: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);
-        --transition-fast: .12s cubic-bezier(.4, 0, .2, 1);
+        --transition-fast: .02s cubic-bezier(.4, 0, .2, 1);
         --transition: .2s cubic-bezier(.4, 0, .2, 1);
         --z-dropdown: 50;
         --z-modal: 200
@@ -1043,7 +1043,9 @@
         border-radius: var(--radius-small);
         box-shadow: var(--shadow-small);
         padding: var(--space-3);
-        overflow: hidden
+        overflow: scroll;
+        max-height: 200px;
+        width: 100%;
     }
 }
 
@@ -1783,7 +1785,7 @@
         inset-inline-start: 50%;
         opacity: 0;
         visibility: hidden;
-        transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+        /* transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast); */
         pointer-events: none;
         z-index: 1000
     }
